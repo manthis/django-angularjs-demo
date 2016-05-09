@@ -1,0 +1,4 @@
+.DS_Store
+.idea
+us-census.db
+__pycache__

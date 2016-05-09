@@ -1,0 +1,46 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src={% static "js/angular.js" %}></script>
+    <script src={% static "js/app.js" %}></script>
+    <link rel="stylesheet" type="text/css" href={% static "css/style.css" %}>
+</head>
+
+<body ng-app="myApp">
+
+<div class="content" ng-controller="MainController">
+
+    <h1>Dataiku's Recruitment Test</h1>
+
+    <select ng-model="selectedItem" ng-change="update()">
+        <option value="">--- Select option ---</option>
+        <option ng-repeat="x in columns" value="[[x]]">[[ x ]]</option>
+    </select>
+
+    <p>
+        Total number of results: [[ stats.length ]].
+        <br/>
+        Number of displayed results: [[ limit ]].
+        <br/>
+        Number of clipped out results: [[ stats.length > 100 ? stats.length - limit : 0 ]]
+    </p>
+
+    <table ng-show="do_display">
+        <tr>
+            <th>Value</th>
+            <th>Count</th>
+            <th>Average Age</th>
+        </tr>
+        <tr ng-repeat="(key, value) in stats | orderBy:sortType:sortReverse | limitTo:limit">
+            <td>[[ value.value ]]</td>
+            <td>[[ value.count ]]</td>
+            <td>[[ value.average | number:2 ]]</td>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>
